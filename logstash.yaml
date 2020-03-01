@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: logstash
+ namespace: elk
+ labels:
+  app: logstash-backend
+spec:
+ containers:
+ - name: logstash
+   image: docker.elastic.co/logstash/logstash:7.6.0
+
+
+---
+# Service
+apiVersion: v1
+kind: Service
+
+metadata:
+ name: logstash
+ namespace: elk
+
+spec:
+ selector: 
+  app: logstash-backend
+ ports:
+ - port: 9200 
+   targetPort: 9200
+  
+ 

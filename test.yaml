@@ -1,0 +1,17 @@
+# Service
+apiVersion: v1
+kind: Service
+
+metadata:
+ name: service1
+ namespace: elk
+
+spec:
+ type: NodePort
+ selector: 
+  app: kibana-frontend
+ ports:
+ - port: 9200
+   targetPort: 9200
+   nodePort: 30002
+ 

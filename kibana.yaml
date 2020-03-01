@@ -1,0 +1,32 @@
+# Kibana frontend app
+apiVersion: v1
+kind: Pod
+metadata:
+ name: kibana
+ namespace: elk
+ labels:
+  app: kibana-frontend
+spec:
+ containers:
+ - name: kibana-frontend
+   image: docker.elastic.co/kibana/kibana:6.8.6
+
+
+---
+# Service
+apiVersion: v1
+kind: Service
+
+metadata:
+ name: kibana-service
+ namespace: elk
+
+spec:
+ type: NodePort
+ selector: 
+  app: kibana-frontend
+ ports:
+ - port: 5601
+   targetPort: 5601
+   nodePort: 30001
+ 
