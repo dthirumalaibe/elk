@@ -8,7 +8,10 @@ metadata:
 spec:
  containers:
  - name: es-middleware
-   image: k8s.gcr.io/elasticsearch:v6.2.4 
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+   env:
+   - name: discovery.type
+     value: "single-node"  
 
 
 ---
@@ -24,7 +27,10 @@ spec:
  selector: 
   app: es-middleware
  ports:
- - port: 9200 
+ - name: one
+   port: 9200 
    targetPort: 9200
-  
+ - name: two
+   port: 9300
+   targetPort: 9300
  

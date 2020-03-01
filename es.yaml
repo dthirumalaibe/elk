@@ -10,11 +10,11 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: elasticsearch-logging
+      app: es
   template:
     metadata:
       labels:
-        k8s-app: es
+        app: es
     spec:
       containers:
       - image: k8s.gcr.io/elasticsearch:v6.2.4
@@ -37,6 +37,12 @@ spec:
       volumes:
       - name: elasticsearch-logging
         emptyDir: {}
+      initContainers:
+      - image: alpine:3.6
+        command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
+        name: elasticsearch-logging-init
+        securityContext:
+          privileged: true
       initContainers:
       - image: alpine:3.6
         command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
