@@ -1,65 +1,39 @@
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:  
-  name: es
-  namespace: elk
-  labels:
-    app: es
+apiVersion: v1
+kind: Pod
+metadata:
+ name: es
+ namespace: elk
+ labels:
+  app: es-middleware
 spec:
-  serviceName: elasticsearch
-  replicas: 2
-  selector:
-    matchLabels:
-      app: es
-  template:
-    metadata:
-      labels:
-        app: es
-    spec:
-      containers:
-      - image: k8s.gcr.io/elasticsearch:v6.2.4
-        name: es
-        ports:
-        - containerPort: 9200
-          name: db
-          protocol: TCP
-        - containerPort: 9300
-          name: transport
-          protocol: TCP
-        volumeMounts:
-        - name: elasticsearch-logging
-          mountPath: /data
-        env:
-        - name: "NAMESPACE"
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-      volumes:
-      - name: elasticsearch-logging
-        emptyDir: {}
-      initContainers:
-      - image: alpine:3.6
-        command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
-        name: elasticsearch-logging-init
-        securityContext:
-          privileged: true
-      initContainers:
-      - image: alpine:3.6
-        command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
-        name: elasticsearch-logging-init
-        securityContext:
-          privileged: true
+ containers:
+ - name: es-middleware
+   image: elasticsearch:6.8.6
+   ports:
+   - containerPort: 9200
+     name: db
+     protocol: TCP
+   - containerPort: 9300
+     name: transport
+     protocol: TCP
+   env:
+   - name: discovery.type
+     value: single-node
+   - name: ELASTICSEARCH_SERVICE_HOST
+     value: 0.0.0.0
+
 ---
 apiVersion: v1
- kind: Service
+kind: Service
 
 metadata:
   name: elasticsearch
   namespace: elk
 
 spec:
-  selector: 
-   app: es
+  selector:
+   app: es-middleware
   ports:
-  - port: 9200 
+  - port: 9200
     targetPort: 9200
+ 
