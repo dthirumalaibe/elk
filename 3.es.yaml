@@ -1,3 +1,35 @@
+# PV for ES
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+ name: esvol
+ namespace: elk
+spec:
+ storageClassName: manual
+ capacity:
+  storage: 10Gi 
+ accessModes:
+ - ReadWriteOnce 
+ hostPath:
+  path: "data"
+
+---
+# PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: esvol
+  namespace: elk
+spec:
+ storageClassName: manual
+ accessModes:
+ - ReadWriteOnce
+ resources:
+  requests:
+   storage: 3Gi
+
+---
+# StatefulSet for elasticservice service 
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -49,8 +81,11 @@ spec:
        value: "elasticsearch"
    volumes:
    - name: datavolume
-     emptyDir: {}
+     persistentVolumeClaim:
+      claimName: esvol
+  
 ---
+# Service for elasticsearch
 apiVersion: v1
 kind: Service
 metadata:

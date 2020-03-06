@@ -1,4 +1,4 @@
-# Namespace
+# Namespace for the ELK stack
  apiVersion: v1
  kind: Namespace
  metadata:
