@@ -1,3 +1,4 @@
+# ConfigMap for logstash configurations
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -29,6 +30,8 @@ data:
             hosts => [ "elasticsearch:9200" ]
         }
     }
+
+# Deployment for logstash
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -72,16 +75,14 @@ spec:
       - key: logstash.conf
         path: logstash.conf
 
-
+# Service for logstash
 ---
 # Service
 apiVersion: v1
 kind: Service
-
 metadata:
  name: logstash
  namespace: elk
-
 spec:
  selector: 
   app: logstash

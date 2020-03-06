@@ -1,4 +1,4 @@
-# Kibana - layer1
+# Deployment for Kibanan service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,14 +26,12 @@ spec:
        protocol: TCP
 
 ---
-# Service
+# Service for Kibana
 apiVersion: v1
 kind: Service
-
 metadata:
  name: kibana
  namespace: elk
-
 spec:
  type: LoadBalancer
  selector: 
