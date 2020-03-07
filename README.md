@@ -23,7 +23,9 @@ kubectl  create -f  5.logstash.yaml
 ```
 
 3. Make sure that all the services are up and running 
-```Kubectl get pods -n elk```
+```
+Kubectl get pods -n elk
+```
 
 ## How to verify the the stack?
 1. Get the loadbalancer IP address for Kibana services and copy it
