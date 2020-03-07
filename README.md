@@ -11,9 +11,9 @@ Is there any prerequisite?
 An access to a Kubernetes cluster on Google Cloud Platform (GLP) with the version v1.10 or later.
 
 ## How to use the manifests to create the stack?
-1-Download the scripts or clone the repo
+1. Download the scripts or clone the repo
 
-2-Pass the manifests to kubectl in the order. i.e.
+2. Pass the manifests to kubectl in the order. i.e.
 ```
 kubectl  create -f  1.namespace.yaml
 kubectl  create -f  2.rbac.yaml
@@ -22,19 +22,19 @@ kubectl  create -f  4.kibana.yaml
 kubectl  create -f  5.logstash.yaml
 ```
 
-3-Make sure that all the services are up and running 
+3. Make sure that all the services are up and running 
 ```Kubectl get pods -n elk```
 
 ## How to verify the the stack?
-1-Get the loadbalancer IP address for Kibana services and copy it
+1. Get the loadbalancer IP address for Kibana services and copy it
 '''kubectl get services kibana -o wide'''
 
-2-Render the Kibana GUI by pasting the IP on your browser 
+2. Render the Kibana GUI by pasting the IP on your browser 
  
-3-Generate some logs in Logstash to export the logs to Elasticsearch
+3. Generate some logs in Logstash to export the logs to Elasticsearch
     Get a terminal to Kibana pod: ```kubectl exec -it <<kibana-pod-name->> -n elk sh```
     Navigate to: /usr/share/logstash
     Create a file sample.log and write some log data on it.
 
-4-Go and create index in elasticsearch via Kibana web interface to retrieve the log you have written on /usr/share/logstash/sample.log
+4. Go and create index in elasticsearch via Kibana web interface to retrieve the log you have written on /usr/share/logstash/sample.log
 
