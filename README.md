@@ -27,14 +27,19 @@ kubectl  create -f  5.logstash.yaml
 
 ## How to verify the the stack?
 1. Get the loadbalancer IP address for Kibana services and copy it
-'''kubectl get services kibana -o wide'''
+'''
+kubectl get services kibana -o wide
+'''
 
 2. Render the Kibana GUI by pasting the IP on your browser 
  
 3. Generate some logs in Logstash to export the logs to Elasticsearch
-    Get a terminal to Kibana pod: ```kubectl exec -it <<kibana-pod-name->> -n elk sh```
-    Navigate to: /usr/share/logstash
-    Create a file sample.log and write some log data on it.
+   - Get a terminal to Kibana pod: 
+     ```
+     kubectl exec -it <<kibana-pod-name->> -n elk sh
+     ```
+   - Navigate to: /usr/share/logstash
+   - Create a file sample.log and write some log data on it.
 
 4. Go and create index in elasticsearch via Kibana web interface to retrieve the log you have written on /usr/share/logstash/sample.log
 
