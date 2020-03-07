@@ -1,6 +1,6 @@
-## ELK stack on a Kubernetes cluster: A hard way
+# ELK stack on a Kubernetes cluster: A hard way
 
-# What is this about?
+## What is this about?
 These are Kubernetes manifests, drafted without using any readymade scripts, in order to create an ELK stack with Elasticsearch, Logstash and Kibana services. 
 
 Please note, however, that these manifests should not be used for production workloads since this was created for educational purpose. 
@@ -10,7 +10,7 @@ And also note that no shipper, such as Filebeat, has not been included in these 
 Is there any prerequisite?
 An access to a Kubernetes cluster on Google Cloud Platform (GLP) with the version v1.10 or later.
 
-# How to use the manifests to create the stack?
+## How to use the manifests to create the stack?
 1-Download the scripts or clone the repo
 
 2-Pass the manifests to kubectl in the order. i.e.
@@ -23,7 +23,7 @@ An access to a Kubernetes cluster on Google Cloud Platform (GLP) with the versio
 3-Make sure that all the services are up and running 
    Kubectl get pods -n elk
 
-# How to verify the the stack?
+## How to verify the the stack?
 1-Get the loadbalancer IP address for Kibana services and copy it
     kubectl get services kibana -o wide
 
